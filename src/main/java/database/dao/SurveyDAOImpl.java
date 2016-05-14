@@ -120,7 +120,6 @@ public class SurveyDAOImpl implements SurveyDAO {
 //
 //	}
 
-	@Override
 	public SAppQuestions getAllQuestions() {
 		String query = "SELECT * FROM SAPPQUESTIONS";
 		SAppQuestions questions = null;
@@ -155,7 +154,7 @@ public class SurveyDAOImpl implements SurveyDAO {
 		return questions;
 	}
 
-@Override
+
 public SAppAnswer retrieveAllAnswersForQuestion(String email) {
 	// TODO Auto-generated method stub
 	return null;
