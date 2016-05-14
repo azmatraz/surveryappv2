@@ -1,11 +1,10 @@
 package database.main;
 
-import java.util.List;
+import model.SAppQuestions;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import database.dao.CustomerDAO;
-import database.model.Customer;
+import database.dao.SurveyDAO;
  
 public class SpringMain {
  
@@ -19,7 +18,7 @@ public class SpringMain {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
          
         //Get the EmployeeDAO Bean
-        CustomerDAO customerDAO = ctx.getBean("customerDAO", CustomerDAO.class);
+        SurveyDAO surveyDAO = ctx.getBean("surveyDAO", SurveyDAO.class);
         
          
        
@@ -32,9 +31,9 @@ public class SpringMain {
 //        System.out.println("reference policy number :"+customerDAO.retrievePolicyNumberAndDatOfBirth().getDateOfBirth());
         
         
-        Customer c = customerDAO.retrievePolicyNumberAndDatOfBirth();
-       System.out.println("reference number "+ c.getRefencePolicyNumber());
-       System.out.println( "Date of birth "+c.getDateOfBirth());
+        SAppQuestions c = surveyDAO.getAllQuestions();
+       System.out.println("reference number "+ c.getQuestionNo());
+       System.out.println( "Date of birth "+c.getQuestionTitle());
         
      
          
