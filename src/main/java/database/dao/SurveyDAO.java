@@ -4,14 +4,14 @@ import java.util.List;
 
 import model.Answer;
 import model.Question;
-import database.model.Customer;
- 
 
 public interface SurveyDAO {
-     
 
-    public Question getAllQuestions();
+    public List<Question> getAllQuestions();
 
-    public Answer retrieveAllAnswersForQuestion(String email);
-    
+    public List<Answer> retrieveAllAnswersForQuestion(int questionNo);
+
+    public int submitQuestion(List<String> question);
+
+    public int selectOrCreateUser(String email);
 }
