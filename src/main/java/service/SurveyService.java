@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import database.dao.SurveyDAO;
-import model.Question;
+import model.SAppQuestion;
 
 public class SurveyService {
 
     @Autowired
     SurveyDAO surveyDao;
 
-    public List<Question> listQuestions() {
+    public List<SAppQuestion> listQuestions() {
         return surveyDao.getAllQuestions();
     }
 }

@@ -2,14 +2,14 @@ package database.dao;
 
 import java.util.List;
 
-import model.Answer;
-import model.Question;
+import model.SAppAnswer;
+import model.SAppQuestion;
 
 public interface SurveyDAO {
 
-    public List<Question> getAllQuestions();
+    public List<SAppQuestion> getAllQuestions();
 
-    public List<Answer> retrieveAllAnswersForQuestion(int questionNo);
+    public List<SAppAnswer> retrieveAllAnswersForQuestion(int questionNo);
 
     public int submitQuestion(List<String> question);
 

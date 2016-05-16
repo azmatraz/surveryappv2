@@ -11,8 +11,8 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import model.Answer;
-import model.Question;
+import model.SAppAnswer;
+import model.SAppQuestion;
 
 public class SurveyDAOImpl implements SurveyDAO {
 
@@ -24,9 +24,9 @@ public class SurveyDAOImpl implements SurveyDAO {
     }
 
     @Override
-    public List<Question> getAllQuestions() {
-        String query = "SELECT * FROM SAPPQUESTIONS";
-        List<Question> questionList = new ArrayList<Question>();
+    public List<SAppQuestion> getAllQuestions() {
+        String query = "SELECT * FROM SAPPSAppQuestionS";
+        List<SAppQuestion> SAppQuestionList = new ArrayList<SAppQuestion>();
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -35,11 +35,12 @@ public class SurveyDAOImpl implements SurveyDAO {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3)));
-                log.info("Question Found:" + questionList.get(questionList.size() - 1));
+                SAppQuestionList.add(new SAppQuestion(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3),
+                                rs.getString(4)));
+                log.info("SAppQuestion Found:" + SAppQuestionList.get(SAppQuestionList.size() - 1));
             }
         } catch (SQLException e) {
-            log.error("Exception caught while trying to retrieve all questions: " + e.getMessage());
+            log.error("Exception caught while trying to retrieve all SAppQuestions: " + e.getMessage());
         } finally {
             try {
                 rs.close();
@@ -49,27 +50,28 @@ public class SurveyDAOImpl implements SurveyDAO {
                 log.error("SQL EXception Caught closing connection: " + e.getMessage());
             }
         }
-        return questionList;
+        return SAppQuestionList;
     }
 
     @Override
-    public List<Answer> retrieveAllAnswersForQuestion(int questionNo) {
-        String query = "SELECT * FROM SAPPANSWERS WHERE QUESTIONNO LIKE ?";
-        List<Answer> answerList = new ArrayList<Answer>();
+    public List<SAppAnswer> retrieveAllAnswersForQuestion(int SAppQuestionNo) {
+        String query = "SELECT * FROM SAPPSAppAnswerS WHERE SAppQuestionNO LIKE ?";
+        List<SAppAnswer> SAppAnswerList = new ArrayList<SAppAnswer>();
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, String.valueOf(questionNo));
+            ps.setString(1, String.valueOf(SAppQuestionNo));
             rs = ps.executeQuery();
             while (rs.next()) {
-                answerList.add(new Answer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
-                log.info("Question Found::" + answerList.get(answerList.size() - 1));
+                SAppAnswerList.add(new SAppAnswer(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)),
+                                Integer.parseInt(rs.getString(3)), rs.getString(4), rs.getString(5)));
+                log.info("SAppQuestion Found::" + SAppAnswerList.get(SAppAnswerList.size() - 1));
             }
         } catch (SQLException e) {
-            log.error("Exception caught while getting answers to the question: " + e.getMessage());
+            log.error("Exception caught while getting SAppAnswers to the SAppQuestion: " + e.getMessage());
         } finally {
             try {
                 rs.close();
@@ -79,25 +81,25 @@ public class SurveyDAOImpl implements SurveyDAO {
                 log.error("SQL EXception Caught closing connection: " + e.getMessage());
             }
         }
-        return answerList;
+        return SAppAnswerList;
     }
 
     @Override
-    public int submitQuestion(List<String> question) {
-        String query = "INSERT INTO SAPPQUESTIONS QuestionNo, QuestionTitle, QuestionBody, Email VALUES ?, ?, ?, ?";
+    public int submitQuestion(List<String> SAppQuestion) {
+        String query = "INSERT INTO SAPPSAppQuestionS SAppQuestionNo, SAppQuestionTitle, SAppQuestionBody, Email VALUES ?, ?, ?, ?";
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, question.get(0));
-            ps.setString(2, question.get(1));
-            ps.setString(3, question.get(2));
-            ps.setString(4, question.get(3));
+            ps.setString(1, SAppQuestion.get(0));
+            ps.setString(2, SAppQuestion.get(1));
+            ps.setString(3, SAppQuestion.get(2));
+            ps.setString(4, SAppQuestion.get(3));
             rs = ps.executeQuery();
         } catch (SQLException e) {
-            log.error("Exceptino caught while trying to insert a new question: " + e.getMessage());
+            log.error("Exceptino caught while trying to insert a new SAppQuestion: " + e.getMessage());
             return 1;
         } finally {
             try {
